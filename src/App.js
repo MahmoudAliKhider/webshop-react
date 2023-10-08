@@ -9,6 +9,8 @@ import AllCategoryPage from "./pages/Category/AllCategoryPage";
 import AllBrand from "./pages/Brand/AllBrandPage";
 import ShopProductsPage from "./pages/Product/ShopProductPage";
 import ProductDetalisPage from "./pages/Product/ProductDetalisPage";
+import CartPage from "./pages/Cart/CartPage";
+
 function App() {
   return (
     <div className="font">
@@ -22,6 +24,7 @@ function App() {
           <Route path="/allbrand" element={<AllBrand />} />
           <Route path="/products" element={<ShopProductsPage />} />
           <Route path="/product/:id" element={<ProductDetalisPage />} />
+          <Route path="/cart" element={<CartPage />} />
         </Routes>
       </BrowserRouter>
       <Footer />
