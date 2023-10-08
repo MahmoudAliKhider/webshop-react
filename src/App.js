@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import LoginPage from "./pages/Auth/LoginPage";
 import RegisterPage from "./pages/Auth/RegisterPage";
 import AllCategoryPage from "./pages/Category/AllCategoryPage";
+import AllBrand from "./pages/Brand/AllBrandPage";
 function App() {
   return (
     <div className="font">
@@ -16,6 +17,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/allcategory" element={<AllCategoryPage />} />
+          <Route path="/allbrand" element={<AllBrand />} />
         </Routes>
       </BrowserRouter>
       <Footer />
