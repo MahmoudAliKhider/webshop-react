@@ -1,8 +1,9 @@
+import HomePage from "./pages/Home/HomePage";
 
 function App() {
   return (
-    <div className="text-center">
- jjjjjjjjjjjj
+    <div>
+      <HomePage />
     </div>
   );
 }
