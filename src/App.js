@@ -7,6 +7,7 @@ import LoginPage from "./pages/Auth/LoginPage";
 import RegisterPage from "./pages/Auth/RegisterPage";
 import AllCategoryPage from "./pages/Category/AllCategoryPage";
 import AllBrand from "./pages/Brand/AllBrandPage";
+import ShopProductPage from "./pages/Product/ShopProductPage";
 function App() {
   return (
     <div className="font">
@@ -18,6 +19,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/allcategory" element={<AllCategoryPage />} />
           <Route path="/allbrand" element={<AllBrand />} />
+          <Route path="/products" element={<ShopProductPage />} />
         </Routes>
       </BrowserRouter>
       <Footer />
