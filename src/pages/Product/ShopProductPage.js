@@ -1,6 +1,6 @@
 import React from 'react';
-
 import { Col, Container, Row } from 'react-bootstrap';
+
 import CategoryHeader from '../../components/Category/CategoryHeader';
 import CardProductsContainer from '../../components/Products/CardProductsContainer';
 import Pagination from '../../components/Uitily/Pagination';
