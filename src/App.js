@@ -23,6 +23,9 @@ import AdminAddProductsPage from "./pages/Admin/AdminAddProductsPage";
 
 import UserAllOrdersPage from "./pages/User/UserAllOrdersPage";
 import UserFavoriteProductsPage from "./pages/User/UserFavoriteProductsPage";
+import UserAllAddresPage from "./pages/User/UserAllAddresPage";
+import UserAddAddressPage from "./pages/User/UserAddAddressPage";
+import UserEditAddressPage from "./pages/User/UserEditAddressPage";
 
 
 function App() {
@@ -42,15 +45,18 @@ function App() {
           <Route path="/order/paymethoud" element={<ChoosePayMethoud />} />
 
           <Route path="/admin/allproducts" element={<AdminAllProductsPage />} />
-          <Route path="admin/allorders" element={ <AdminAllOrdersPage />} />
-          <Route path="admin/orders/:id" element={ <AdminOrderDetalisPage />} />
-          <Route path="admin/addbrand" element={ <AdminAddBrandPage />} />
-          <Route path="admin/addcategory" element={ <AdminAddCategoryPage />} />
-          <Route path="admin/addsubcategory" element={ <AdminAddSubCategoryPage />} />
-          <Route path="admin/addproduct" element={ <AdminAddProductsPage />} />
+          <Route path="admin/allorders" element={<AdminAllOrdersPage />} />
+          <Route path="admin/orders/:id" element={<AdminOrderDetalisPage />} />
+          <Route path="admin/addbrand" element={<AdminAddBrandPage />} />
+          <Route path="admin/addcategory" element={<AdminAddCategoryPage />} />
+          <Route path="admin/addsubcategory" element={<AdminAddSubCategoryPage />} />
+          <Route path="admin/addproduct" element={<AdminAddProductsPage />} />
 
-          <Route path="user/allorders" element={ <UserAllOrdersPage />} />
-          <Route path="user/favoriteproducts" element={ <UserFavoriteProductsPage />} />
+          <Route path="user/allorders" element={<UserAllOrdersPage />} />
+          <Route path="user/favoriteproducts" element={<UserFavoriteProductsPage />} />
+          <Route path="user/addresses" element={<UserAllAddresPage />} />
+          <Route path="user/add-address" element={<UserAddAddressPage />} />
+          <Route path="user/edit-address" element={<UserEditAddressPage />} />
         </Routes>
       </BrowserRouter>
       <Footer />
