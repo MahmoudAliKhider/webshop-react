@@ -1,22 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import CategoryContainer from '../../components/Category/CategoryContainer'
-import  Pagination  from '../../components/Uitily/Pagination'
-// import baseUrl from '../../Api/baseURL'
+import Pagination from '../../components/Uitily/Pagination'
+import { useSelector, useDispatch } from 'react-redux'
+import { getAllCategory } from '../../redux/actions/categoryAction'
 const AllCategoryPage = () => {
+  const dispatch = useDispatch();
 
-  // const getAllCategory =async ()=>{
-  //   const res =await baseUrl.get('/categories');
-  //   console.log(res.data)
-  // }
+  useEffect(() => {
+    dispatch(getAllCategory())
+  }, [])
 
-  // useEffect(()=>{
-  //  getAllCategory();
-  // },[]);
+  const data = useSelector(state => state.allCategory.category);
+  const loading = useSelector(state => state.allCategory.loading);
+  
 
   return (
-    <div style={{minHeight:"630px"}}>
-        <CategoryContainer />
-        <Pagination />
+    <div style={{ minHeight: "630px" }}>
+      <CategoryContainer />
+      <Pagination />
     </div>
   )
 }
