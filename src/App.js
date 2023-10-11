@@ -5,12 +5,17 @@ import Footer from './components/Uitily/Footer';
 import ChoosePayMethoud from "./components/Checkout/ChoosePayMethoud";
 
 import HomePage from "./pages/Home/HomePage";
+
 import LoginPage from "./pages/Auth/LoginPage";
 import RegisterPage from "./pages/Auth/RegisterPage";
+
 import AllCategoryPage from "./pages/Category/AllCategoryPage";
+
 import AllBrand from "./pages/Brand/AllBrandPage";
+
 import ShopProductsPage from "./pages/Product/ShopProductPage";
 import ProductDetalisPage from "./pages/Product/ProductDetalisPage";
+
 import CartPage from "./pages/Cart/CartPage";
 
 import AdminAllProductsPage from "./pages/Admin/AdminAllProductsPage";
