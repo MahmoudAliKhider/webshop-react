@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import CategoryContainer from '../../components/Category/CategoryContainer'
 import  Pagination  from '../../components/Uitily/Pagination'
-import baseUrl from '../../Api/baseURL'
+// import baseUrl from '../../Api/baseURL'
 const AllCategoryPage = () => {
 
-  const getAllCategory =async ()=>{
-    const res =await baseUrl.get('/categories');
-    console.log(res.data)
-  }
+  // const getAllCategory =async ()=>{
+  //   const res =await baseUrl.get('/categories');
+  //   console.log(res.data)
+  // }
 
-  useEffect(()=>{
-   getAllCategory();
-  },[]);
+  // useEffect(()=>{
+  //  getAllCategory();
+  // },[]);
 
   return (
     <div style={{minHeight:"630px"}}>
