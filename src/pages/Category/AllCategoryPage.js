@@ -1,25 +1,37 @@
-import React,{useEffect} from 'react'
+import React, { useEffect } from 'react'
 import CategoryContainer from '../../components/Category/CategoryContainer'
 import Pagination from '../../components/Uitily/Pagination'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { getAllCategory } from '../../redux/actions/categoryAction'
+import { getAllCategory, getAllCategoryPage } from '../../redux/actions/categoryAction'
 
 const AllCategoryPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-      dispatch(getAllCategory(8))
+    dispatch(getAllCategory(7))
   }, [])
 
   const category = useSelector(state => state.allCategory.category);
   const loading = useSelector(state => state.allCategory.loading);
 
-  return (
+  let pageCount = 0;
+  if (category.paginationResult) {
+    pageCount = category.paginationResult.numberOfPages
+  }
 
+  const getPage = (page) => {
+    dispatch(getAllCategoryPage(page))
+  }
+  return (
     <div style={{ minHeight: "630px" }}>
-      <CategoryContainer data={category.data} loading={loading}/>
-      <Pagination />
+      <CategoryContainer data={category.data} loading={loading} />
+      {
+        pageCount>1?(
+      <Pagination pageCount={pageCount} onPress={getPage} />
+
+        ):null
+      }
     </div>
   )
 }
