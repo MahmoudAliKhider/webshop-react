@@ -6,8 +6,8 @@ const CategoryCard = ({ background, img, title }) => {
         <Col
             xs="6"
             sm="6"
-            md="5"
-            lg="3"
+            md="4"
+            lg="2"
             className="my-4 d-flex justify-content-around ">
             <div className="allCard mb-3 ">
                 <div

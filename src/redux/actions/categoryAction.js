@@ -1,5 +1,6 @@
-import { GET_ALL_CATEGORY, GET_ERROR } from '../type';
+import { GET_ALL_CATEGORY, GET_ERROR, CREATE_CATEGORY } from '../type';
 import useGetData from '../../hooks/useGetData';
+import { useInsertDataWithImage } from '../../hooks/useInseartData';
 
 export const getAllCategory = (limit) => async (dispatch) => {
     try {
@@ -24,6 +25,22 @@ export const getAllCategoryPage = (page) => async (dispatch) => {
         dispatch({
             type: GET_ALL_CATEGORY,
             payload: response,
+        })
+
+    } catch (e) {
+        dispatch({
+            type: GET_ERROR,
+            payload: "Error " + e,
+        })
+    }
+}
+export const createCategory = (formData) => async (dispatch) => {
+    try {
+        const response = await useInsertDataWithImage(`/categories`, formData);
+        dispatch({
+            type: CREATE_CATEGORY,
+            payload: response,
+            loading: true
         })
 
     } catch (e) {

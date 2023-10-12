@@ -1,4 +1,4 @@
-import { GET_ALL_CATEGORY, GET_ERROR } from '../type';
+import { GET_ALL_CATEGORY, GET_ERROR, CREATE_CATEGORY } from '../type';
 
 const inital = {
     category: [],
@@ -11,6 +11,11 @@ const categoryReducer = (state = inital, action) => {
         case GET_ALL_CATEGORY:
             return {
                 ...state,
+                category: action.payload,
+                loading: false,
+            }
+        case CREATE_CATEGORY:
+            return {
                 category: action.payload,
                 loading: false,
             }
