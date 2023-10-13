@@ -9,7 +9,7 @@ const AllCategoryPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllCategory(7))
+    dispatch(getAllCategory(6))
   }, [])
 
   const category = useSelector(state => state.allCategory.category);
