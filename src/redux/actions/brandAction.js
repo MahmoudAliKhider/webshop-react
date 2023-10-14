@@ -1,5 +1,6 @@
-import { GET_ALL_BRAND, GET_ERROR } from '../type';
+import { CREATE_BRAND, GET_ALL_BRAND, GET_ERROR } from '../type';
 import useGetData from '../../hooks/useGetData';
+import { useInsertDataWithImage } from '../../hooks/useInseartData';
 
 export const getAllBrand = (limit) => async (dispatch) => {
     try {
@@ -24,6 +25,23 @@ export const getAllBrandPage = (page) => async (dispatch) => {
         dispatch({
             type: GET_ALL_BRAND,
             payload: response,
+        })
+
+    } catch (e) {
+        dispatch({
+            type: GET_ERROR,
+            payload: "Error " + e,
+        })
+    }
+}
+
+export const createBrand = (formData) => async (dispatch) => {
+    try {
+        const response = await useInsertDataWithImage(`/brands`, formData);
+        dispatch({
+            type: CREATE_BRAND,
+            payload: response,
+            loading: true
         })
 
     } catch (e) {
