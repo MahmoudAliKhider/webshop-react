@@ -1,6 +1,5 @@
 import { GET_ALL_BRAND, GET_ERROR } from '../type';
 import useGetData from '../../hooks/useGetData';
-import { useInsertDataWithImage } from '../../hooks/useInseartData';
 
 export const getAllBrand = (limit) => async (dispatch) => {
     try {
@@ -18,7 +17,7 @@ export const getAllBrand = (limit) => async (dispatch) => {
     }
 }
 
-//get all category with pagination
+//get all brand with pagination
 export const getAllBrandPage = (page) => async (dispatch) => {
     try {
         const response = await useGetData(`/brands?limit=6&page=${page}`);

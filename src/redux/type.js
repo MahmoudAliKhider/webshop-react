@@ -3,4 +3,5 @@ export const GET_ERROR = "GET_ERROR"
 export const CREATE_CATEGORY = "CREATE_CATEGORY"
 
 export const GET_ALL_BRAND = "BRAND"
+export const CREATE_BRAND = "CREATE_BRAND"
 
