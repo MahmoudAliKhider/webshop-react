@@ -55,6 +55,7 @@ const AddCategoryHook = () => {
             }
         }
     }, [loading])
+    
     return [img, name, loading, isPress, handelSubmit, onImageChange, onChangeName]
 };
 export default AddCategoryHook
