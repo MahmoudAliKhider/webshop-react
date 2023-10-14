@@ -16,8 +16,8 @@ const BrandFeatured = ({ title, btntitle }) => {
                 {
                     loading === false ? (
                         brand.data ? (
-                            brand.data.slice(0, 6).map((item) => {
-                                return (<BrandCard img={item.image} />)
+                            brand.data.slice(0, 6).map((item,index) => {
+                                return (<BrandCard key={index} img={item.image} />)
                             })
                         ) : <h4>لا يوجد مركات</h4>
                     ) : <Spinner animation='border' variant='primary' />
