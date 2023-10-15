@@ -1,10 +1,10 @@
 import { CREATE_SUB_CATEGORY, GET_ERROR } from '../type'
 import { useInsertData } from '../../hooks/useInseartData';
 
-export const createSupCategory = (data) => async (dispatch) => {
+export const createSubCategory = (data) => async (dispatch) => {
 
     try {
-        const response = await useInsertData('/subcategories');
+        const response = await useInsertData('/subcategories',data);
         dispatch({
             type: CREATE_SUB_CATEGORY,
             payload: response,
