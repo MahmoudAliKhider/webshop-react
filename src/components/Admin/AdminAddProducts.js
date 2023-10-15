@@ -2,6 +2,7 @@ import React from 'react'
 import { Row, Col } from 'react-bootstrap'
 import Multiselect from 'multiselect-react-dropdown';
 import MultiImageInput from 'react-multiple-image-input';
+import { CompactPicker } from 'react-color'
 
 import avatar from '../../images/avatar.png'
 import add from '../../images/add.png'
@@ -10,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
 import { getAllCategory } from '../../redux/actions/categoryAction';
+import { getAllBrand } from '../../redux/actions/brandAction';
 
 const AdminAddProducts = () => {
 
@@ -37,6 +39,7 @@ const AdminAddProducts = () => {
     // user chosse
     const [seletedSubID, setSeletedSubID] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [showColor, setShowColor] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -46,8 +49,18 @@ const AdminAddProducts = () => {
             return;
         }
         dispatch(getAllCategory());
+        dispatch(getAllBrand());
     }, [])
     const category = useSelector(state => state.allCategory.category)
+    const brand = useSelector(state => state.allBrand.brand)
+
+    const onSelectCategory = (e) => {
+        setCatID(e.target.value)
+    }
+
+    const onSelectBrand = (e) => {
+        SetBrandID(e.target.value)
+    }
 
     return (
         <div>
@@ -98,7 +111,7 @@ const AdminAddProducts = () => {
                         value={qty}
                         onChange={(e) => setQty(e.target.values)}
                     />
-                    <select name="category" id="cat" className="select mt-3 px-2 " >
+                    <select name="category" id="cat" className="select mt-3 px-2 " onChange={onSelectCategory}>
                         <option value="0">اختر تصنيف </option>
                         {
                             category.data ? (
@@ -118,15 +131,17 @@ const AdminAddProducts = () => {
                         displayValue="name"
                         style={{ color: "red" }}
                     />
-                    <select
-                        name="brand"
-                        id="brand"
-                        className="select input-form-area mt-3 px-2 ">
-                        <option value="val">الماركة</option>
-                        <option value="val2">التصنيف الماركة الاولي</option>
-                        <option value="val2">التصنيف الماركة الثانيه</option>
-                        <option value="val2">التصنيف الرابع</option>
+                    <select name="brand" id="bra" className="select mt-3 px-2 " onChange={onSelectBrand}>
+                        <option value="0">اختر الماركة </option>
+                        {
+                            brand.data ? (
+                                brand.data.map((item) => {
+                                    return (<option key={item._id} value={item._id}>{item.name}</option>)
+                                })
+                            ) : null
+                        }
                     </select>
+
                     <div className="text-form mt-3 "> الالوان المتاحه للمنتج</div>
                     <div className="mt-1 d-flex">
                         <div
@@ -138,7 +153,12 @@ const AdminAddProducts = () => {
                         <div
                             className="color ms-2 border  mt-1"
                             style={{ backgroundColor: "black" }}></div>
-                        <img src={add} alt="" width="30px" height="35px" className="" />
+                        <img onClick={() => setShowColor(!showColor)} src={add} alt="" width="30px" height="35px" style={{ cursor: 'pointer' }} />
+                        {
+                            showColor === true ? <CompactPicker /> : null
+                        }
+
+
                     </div>
                 </Col>
             </Row>
