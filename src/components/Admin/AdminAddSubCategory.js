@@ -6,7 +6,7 @@ import  AddSubcategoryhook  from '../../hook/subCategory/add-subcategory-hook'
 
 const AdminAddSubCategory = () => {
 
- const [id, name, loading, category, subcategory, handelChange, handelSubmit, onChangeName] = AddSubcategoryhook();
+ const [ name, category, handelChange, handelSubmit, onChangeName] = AddSubcategoryhook();
 
 
     return (

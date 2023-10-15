@@ -1,9 +1,16 @@
 import React from 'react'
 import { Row, Col } from 'react-bootstrap'
 import Multiselect from 'multiselect-react-dropdown';
+import MultiImageInput from 'react-multiple-image-input';
 
 import avatar from '../../images/avatar.png'
 import add from '../../images/add.png'
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+
+import { getAllCategory } from '../../redux/actions/categoryAction';
+
 const AdminAddProducts = () => {
 
     const onSelect = () => {
@@ -18,43 +25,88 @@ const AdminAddProducts = () => {
         { name: "التصنيف الثاني", id: 2 },
     ];
 
+    const [images, setImages] = useState([])
+    const [prodName, setProdName] = useState('');
+    const [prodDescription, setProdDescription] = useState('');
+    const [priceBefore, setPriceBefore] = useState('السعر قبل الخصم');
+    const [priceAftr, setPriceAftr] = useState('السعر بعد الخصم');
+    const [qty, setQty] = useState('الكمية المتاحة');
+    const [CatID, setCatID] = useState('');
+    const [BrandID, SetBrandID] = useState('');
+    const [subCatID, setSubCatID] = useState([]);
+    // user chosse
+    const [seletedSubID, setSeletedSubID] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (!navigator.onLine) {
+            console.log("هناك مشكله فى الاتصال بالانترنت", "warn")
+            return;
+        }
+        dispatch(getAllCategory());
+    }, [])
+    const category = useSelector(state => state.allCategory.category)
+
     return (
         <div>
             <Row className="justify-content-start ">
                 <div className="admin-content-text pb-4"> اضافه منتج جديد</div>
                 <Col sm="8">
                     <div className="text-form pb-2"> صور للمنتج</div>
-                    <img src={avatar} alt="" height="100px" width="120px" />
+                    <MultiImageInput
+                        images={images}
+                        setImages={setImages}
+                        theme={"light"}
+                        allowCrop={false}
+                        max={4}
+                    />
                     <input
+                        value={prodName}
+                        onChange={(e) => setProdName(e.target.values)}
                         type="text"
                         className="input-form d-block mt-3 px-3"
                         placeholder="اسم المنتج"
                     />
                     <textarea
+                        value={prodDescription}
+                        onChange={(e) => setProdDescription(e.target.values)}
                         className="input-form-area p-2 mt-3"
                         rows="4"
                         cols="50"
                         placeholder="وصف المنتج"
                     />
                     <input
+                        value={priceBefore}
+                        onChange={(e) => setPriceBefore(e.target.values)}
                         type="number"
                         className="input-form d-block mt-3 px-3"
                         placeholder="السعر قبل الخصم"
                     />
                     <input
+                        value={priceAftr}
+                        onChange={(e) => setPriceAftr(e.target.values)}
                         type="number"
                         className="input-form d-block mt-3 px-3"
-                        placeholder="سعر المنتج"
+                        placeholder=" السعر بعد الخص"
                     />
-                    <select
-                        name="languages"
-                        id="lang"
-                        className="select input-form-area mt-3 px-2 ">
-                        <option value="val">التصنيف الرئيسي</option>
-                        <option value="val">التصنيف الاول</option>
-                        <option value="val2">التصنيف الثاني</option>
-                        <option value="val2">التصنيف الثالث</option>
-                        <option value="val2">التصنيف الرابع</option>
+                    <input
+                        type="number"
+                        className="input-form d-block mt-3 px-3"
+                        placeholder="الكمية المتاحة"
+                        value={qty}
+                        onChange={(e) => setQty(e.target.values)}
+                    />
+                    <select name="category" id="cat" className="select mt-3 px-2 " >
+                        <option value="0">اختر تصنيف </option>
+                        {
+                            category.data ? (
+                                category.data.map((item) => {
+                                    return (<option key={item._id} value={item._id}>{item.name}</option>)
+                                })
+                            ) : null
+                        }
                     </select>
 
                     <Multiselect
