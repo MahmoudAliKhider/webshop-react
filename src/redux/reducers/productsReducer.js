@@ -1,7 +1,7 @@
 import { CREATE_PRODUCTS, GET_ERROR } from '../type';
 
 const inital = {
-    product: [],
+    products: [],
     loading: true,
 }
 

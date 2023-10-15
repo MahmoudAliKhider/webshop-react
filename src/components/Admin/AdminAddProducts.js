@@ -4,85 +4,13 @@ import Multiselect from 'multiselect-react-dropdown';
 import MultiImageInput from 'react-multiple-image-input';
 import { CompactPicker } from 'react-color'
 
-import avatar from '../../images/avatar.png'
 import add from '../../images/add.png'
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import AdminAddProductsHook from "../../hook/product/add-products-hook";
 
-import { getAllCategory } from '../../redux/actions/categoryAction';
-import { getAllBrand } from '../../redux/actions/brandAction';
-import { getSubCategory } from '../../redux/actions/subcategoryAction';
+const [onChangeDesName, onChangeQty, onChangeColor, onChangePriceAfter, onChangePriceBefor, onChangeProdName, showColor, category, brand, priceAftr, images, setImages, onSelect, onRemove, options, handelChangeComplete, removeColor, onSelectCategory, handelSubmit, onSelectBrand, colors, priceBefore, qty, prodDescription, prodName] = AdminAddProductsHook();
+
 
 const AdminAddProducts = () => {
-
-    const onSelect = (selectedList) => {
-        setSeletedSubID(selectedList)
-    }
-    const onRemove = (selectedList) => {
-        setSeletedSubID(selectedList)
-
-    }
-
-    const [images, setImages] = useState([])
-    const [prodName, setProdName] = useState('');
-    const [prodDescription, setProdDescription] = useState('');
-    const [priceBefore, setPriceBefore] = useState('السعر قبل الخصم');
-    const [priceAftr, setPriceAftr] = useState('السعر بعد الخصم');
-    const [qty, setQty] = useState('الكمية المتاحة');
-    const [CatID, setCatID] = useState('');
-    const [BrandID, SetBrandID] = useState('');
-    const [subCatID, setSubCatID] = useState([]);
-    // user chosse
-    const [seletedSubID, setSeletedSubID] = useState([]);
-
-    const [loading, setLoading] = useState(true);
-    const [showColor, setShowColor] = useState(false);
-    const [colors, setColors] = useState([]);
-    const [options, setOptions] = useState([]);
-
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        if (!navigator.onLine) {
-            console.log("هناك مشكله فى الاتصال بالانترنت", "warn")
-            return;
-        }
-        dispatch(getAllCategory());
-        dispatch(getAllBrand());
-    }, [])
-
-    const category = useSelector(state => state.allCategory.category)
-    const brand = useSelector(state => state.allBrand.brand)
-    const subcategory = useSelector(state => state.subCategory.subcategory)
-
-    const onSelectCategory = async (e) => {
-        if (e.target.value !== 0) {
-            await dispatch(getSubCategory(e.target.value))
-        }
-        setCatID(e.target.value)
-    }
-
-    useEffect(() => {
-        if (subcategory.data) {
-            setOptions(subcategory.data)
-        }
-    }, [CatID])
-
-    const onSelectBrand = (e) => {
-        SetBrandID(e.target.value)
-    }
-
-    const handelChangeComplete = (color) => {
-        setShowColor(!showColor);
-        setColors([...colors, color.hex]);
-    }
-
-    const removeColor = (color) => {
-        const newColor = colors.filter((e) => e !== color)
-        setColors(newColor);
-    }
-
     return (
         <div>
             <Row className="justify-content-start ">
@@ -98,14 +26,14 @@ const AdminAddProducts = () => {
                     />
                     <input
                         value={prodName}
-                        onChange={(e) => setProdName(e.target.values)}
+                        onChange={onChangeProdName}
                         type="text"
                         className="input-form d-block mt-3 px-3"
                         placeholder="اسم المنتج"
                     />
                     <textarea
                         value={prodDescription}
-                        onChange={(e) => setProdDescription(e.target.values)}
+                        onChange={onChangeDesName}
                         className="input-form-area p-2 mt-3"
                         rows="4"
                         cols="50"
@@ -113,14 +41,14 @@ const AdminAddProducts = () => {
                     />
                     <input
                         value={priceBefore}
-                        onChange={(e) => setPriceBefore(e.target.values)}
+                        onChange={onChangePriceBefor}
                         type="number"
                         className="input-form d-block mt-3 px-3"
                         placeholder="السعر قبل الخصم"
                     />
                     <input
                         value={priceAftr}
-                        onChange={(e) => setPriceAftr(e.target.values)}
+                        onChange={onChangePriceAfter}
                         type="number"
                         className="input-form d-block mt-3 px-3"
                         placeholder=" السعر بعد الخص"
@@ -130,7 +58,7 @@ const AdminAddProducts = () => {
                         className="input-form d-block mt-3 px-3"
                         placeholder="الكمية المتاحة"
                         value={qty}
-                        onChange={(e) => setQty(e.target.values)}
+                        onChange={onChangeQty}
                     />
                     <select name="category" id="cat" className="select mt-3 px-2 " onChange={onSelectCategory}>
                         <option value="0">اختر تصنيف </option>
@@ -180,7 +108,7 @@ const AdminAddProducts = () => {
                             ) : null
                         }
 
-                        <img onClick={() => setShowColor(!showColor)} src={add} alt="" width="30px" height="35px" style={{ cursor: 'pointer' }} />
+                        <img onClick={onChangeColor} src={add} alt="" width="30px" height="35px" style={{ cursor: 'pointer' }} />
                         {
                             showColor === true ? <CompactPicker onChangeComplete={handelChangeComplete} /> : null
                         }
@@ -191,7 +119,7 @@ const AdminAddProducts = () => {
             </Row>
             <Row>
                 <Col sm="8" className="d-flex justify-content-end ">
-                    <button className="btn-save d-inline mt-2 ">حفظ التعديلات</button>
+                    <button onClick={handelSubmit} className="btn-save d-inline mt-2 ">حفظ التعديلات</button>
                 </Col>
             </Row>
         </div>
