@@ -12,20 +12,17 @@ import { useEffect } from 'react';
 
 import { getAllCategory } from '../../redux/actions/categoryAction';
 import { getAllBrand } from '../../redux/actions/brandAction';
+import { getSubCategory } from '../../redux/actions/subcategoryAction';
 
 const AdminAddProducts = () => {
 
-    const onSelect = () => {
+    const onSelect = (selectedList) => {
+        setSeletedSubID(selectedList)
+    }
+    const onRemove = (selectedList) => {
+        setSeletedSubID(selectedList)
 
     }
-    const onRemove = () => {
-
-    }
-
-    const options = [
-        { name: "التصنيف الاول", id: 1 },
-        { name: "التصنيف الثاني", id: 2 },
-    ];
 
     const [images, setImages] = useState([])
     const [prodName, setProdName] = useState('');
@@ -38,8 +35,11 @@ const AdminAddProducts = () => {
     const [subCatID, setSubCatID] = useState([]);
     // user chosse
     const [seletedSubID, setSeletedSubID] = useState([]);
+
     const [loading, setLoading] = useState(true);
     const [showColor, setShowColor] = useState(false);
+    const [colors, setColors] = useState([]);
+    const [options, setOptions] = useState([]);
 
     const dispatch = useDispatch();
 
@@ -51,15 +51,36 @@ const AdminAddProducts = () => {
         dispatch(getAllCategory());
         dispatch(getAllBrand());
     }, [])
+
     const category = useSelector(state => state.allCategory.category)
     const brand = useSelector(state => state.allBrand.brand)
+    const subcategory = useSelector(state => state.subCategory.subcategory)
 
-    const onSelectCategory = (e) => {
+    const onSelectCategory = async (e) => {
+        if (e.target.value !== 0) {
+            await dispatch(getSubCategory(e.target.value))
+        }
         setCatID(e.target.value)
     }
 
+    useEffect(() => {
+        if (subcategory.data) {
+            setOptions(subcategory.data)
+        }
+    }, [CatID])
+
     const onSelectBrand = (e) => {
         SetBrandID(e.target.value)
+    }
+
+    const handelChangeComplete = (color) => {
+        setShowColor(!showColor);
+        setColors([...colors, color.hex]);
+    }
+
+    const removeColor = (color) => {
+        const newColor = colors.filter((e) => e !== color)
+        setColors(newColor);
     }
 
     return (
@@ -144,18 +165,24 @@ const AdminAddProducts = () => {
 
                     <div className="text-form mt-3 "> الالوان المتاحه للمنتج</div>
                     <div className="mt-1 d-flex">
-                        <div
-                            className="color ms-2 border  mt-1"
-                            style={{ backgroundColor: "#E52C2C" }}></div>
-                        <div
-                            className="color ms-2 border mt-1 "
-                            style={{ backgroundColor: "white" }}></div>
-                        <div
-                            className="color ms-2 border  mt-1"
-                            style={{ backgroundColor: "black" }}></div>
+
+                        {
+                            colors.length >= 1 ? (
+                                colors.map((color, index) => {
+                                    return (
+                                        <div
+                                            key={index}
+                                            onClick={() => removeColor(color)}
+                                            className="color ms-2 border  mt-1"
+                                            style={{ backgroundColor: color }}></div>
+                                    )
+                                })
+                            ) : null
+                        }
+
                         <img onClick={() => setShowColor(!showColor)} src={add} alt="" width="30px" height="35px" style={{ cursor: 'pointer' }} />
                         {
-                            showColor === true ? <CompactPicker /> : null
+                            showColor === true ? <CompactPicker onChangeComplete={handelChangeComplete} /> : null
                         }
 
 
