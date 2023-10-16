@@ -184,7 +184,7 @@ const AdminAddProductsHook = () => {
             setTimeout(() => setLoading(true), 1500)
 
             if (product) {
-                if (product.status === 201) {
+                if (product.status === 201 || 200) {
                     notify("تم الاضافة بنجاح", "success")
                 } else {
                     notify("هناك مشكله", "error")
