@@ -1,24 +1,25 @@
 import React from 'react'
 import { Row, Col } from 'react-bootstrap'
 import Multiselect from 'multiselect-react-dropdown';
+import add from '../../images/add.png'
 import MultiImageInput from 'react-multiple-image-input';
+
 import { CompactPicker } from 'react-color'
 import { ToastContainer } from 'react-toastify';
-
-import add from '../../images/add.png';
-
-import AdminAddProductsHook from './../../hook/product/add-products-hook'
-const [onChangeDesName, onChangeQty, onChangeColor, onChangePriceAfter, onChangePriceBefor, onChangeProdName, showColor, category, brand, priceAftr, images, setImages, onSelect, onRemove, options, handelChangeComplete, removeColor, onSelectCategory, handelSubmit, onSelectBrand, colors, priceBefore, qty, prodDescription, prodName] =
-    AdminAddProductsHook();
-
+import AdminAddProductsHook from './../../hook/product/add-products-hook';
 
 const AdminAddProducts = () => {
+
+    const [onChangeDesName, onChangeQty, onChangeColor, onChangePriceAfter, onChangePriceBefor, onChangeProdName, showColor, category, brand, priceAftr, images, setImages, onSelect, onRemove, options, handelChangeComplete, removeColor, onSeletCategory, handelSubmit, onSeletBrand, colors, priceBefore, qty, prodDescription, prodName] =
+        AdminAddProductsHook();
+        
     return (
         <div>
             <Row className="justify-content-start ">
                 <div className="admin-content-text pb-4"> اضافه منتج جديد</div>
                 <Col sm="8">
                     <div className="text-form pb-2"> صور للمنتج</div>
+
                     <MultiImageInput
                         images={images}
                         setImages={setImages}
@@ -26,6 +27,7 @@ const AdminAddProducts = () => {
                         allowCrop={false}
                         max={4}
                     />
+
                     <input
                         value={prodName}
                         onChange={onChangeProdName}
@@ -34,26 +36,26 @@ const AdminAddProducts = () => {
                         placeholder="اسم المنتج"
                     />
                     <textarea
-                        value={prodDescription}
-                        onChange={onChangeDesName}
                         className="input-form-area p-2 mt-3"
                         rows="4"
                         cols="50"
                         placeholder="وصف المنتج"
+                        value={prodDescription}
+                        onChange={onChangeDesName}
                     />
                     <input
-                        value={priceBefore}
-                        onChange={onChangePriceBefor}
                         type="number"
                         className="input-form d-block mt-3 px-3"
                         placeholder="السعر قبل الخصم"
+                        value={priceBefore}
+                        onChange={onChangePriceBefor}
                     />
                     <input
-                        value={priceAftr}
-                        onChange={onChangePriceAfter}
                         type="number"
                         className="input-form d-block mt-3 px-3"
-                        placeholder=" السعر بعد الخص"
+                        placeholder="السعر بعد الخصم"
+                        value={priceAftr}
+                        onChange={onChangePriceAfter}
                     />
                     <input
                         type="number"
@@ -62,14 +64,18 @@ const AdminAddProducts = () => {
                         value={qty}
                         onChange={onChangeQty}
                     />
-                    <select name="category" id="cat" className="select mt-3 px-2 " onChange={onSelectCategory}>
-                        <option value="0">اختر تصنيف </option>
+                    <select
+                        name="cat"
+                        onChange={onSeletCategory}
+                        className="select input-form-area mt-3 px-2 ">
+                        <option value="0">التصنيف الرئيسي</option>
                         {
-                            category.data ? (
-                                category.data.map((item,index) => {
-                                    return (<option key={index} value={item._id}>{item.name}</option>)
-                                })
-                            ) : null
+                            category.data ? (category.data.map((item,index) => {
+                                return (
+                                    <option key={index} value={item._id}>{item.name}</option>
+                                )
+                            })) : null
+
                         }
                     </select>
 
@@ -82,31 +88,33 @@ const AdminAddProducts = () => {
                         displayValue="name"
                         style={{ color: "red" }}
                     />
-                    <select name="brand" id="bra" className="select mt-3 px-2 " onChange={onSelectBrand}>
-                        <option value="0">اختر الماركة </option>
+                    <select
+                        name="brand"
+                        onChange={onSeletBrand}
+                        className="select input-form-area mt-3 px-2 ">
+                        <option value="0">اختر ماركة</option>
                         {
-                            brand.data ? (
-                                brand.data.map((item,index) => {
-                                    return (<option key={index} value={item._id}>{item.name}</option>)
-                                })
-                            ) : null
+                            brand.data ? (brand.data.map((item,index) => {
+                                return (
+                                    <option key={index} value={item._id}>{item.name}</option>
+                                )
+                            })) : null
+
                         }
                     </select>
-
                     <div className="text-form mt-3 "> الالوان المتاحه للمنتج</div>
                     <div className="mt-1 d-flex">
-
                         {
                             colors.length >= 1 ? (
                                 colors.map((color, index) => {
                                     return (
-                                        <div
-                                            key={index}
+                                        <div key={index}
                                             onClick={() => removeColor(color)}
                                             className="color ms-2 border  mt-1"
                                             style={{ backgroundColor: color }}></div>
                                     )
                                 })
+
                             ) : null
                         }
 
@@ -114,7 +122,6 @@ const AdminAddProducts = () => {
                         {
                             showColor === true ? <CompactPicker onChangeComplete={handelChangeComplete} /> : null
                         }
-
 
                     </div>
                 </Col>
