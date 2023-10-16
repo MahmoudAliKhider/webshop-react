@@ -1,46 +1,26 @@
 
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-
-import { getAllCategory } from '../../redux/actions/categoryAction';
-import { getAllBrand } from '../../redux/actions/brandAction';
-import { getSubCategory } from '../../redux/actions/subcategoryAction';
+import  { useState, useEffect } from 'react'
+import { getOneCategory } from '../../redux/actions/subcategoryAction';
 import { createProduct } from '../../redux/actions/productsAction';
+import notify from './../../hook/useNotifaction';
+import { useSelector, useDispatch } from 'react-redux'
+import { getAllCategory } from '../../redux/actions/categoryAction'
+import { getAllBrand } from './../../redux/actions/brandAction';
 
 const AdminAddProductsHook = () => {
-    const [images, setImages] = useState([])
-    const [prodName, setProdName] = useState('');
-    const [prodDescription, setProdDescription] = useState('');
-    const [priceBefore, setPriceBefore] = useState('السعر قبل الخصم');
-    const [priceAftr, setPriceAftr] = useState('السعر بعد الخصم');
-    const [qty, setQty] = useState('الكمية المتاحة');
-    const [CatID, setCatID] = useState('');
-    const [BrandID, SetBrandID] = useState('');
-    // user chosse
-    const [seletedSubID, setSeletedSubID] = useState([]);
-
-    const [loading, setLoading] = useState(true);
-    const [showColor, setShowColor] = useState(false);
-    const [colors, setColors] = useState([]);
-    const [options, setOptions] = useState([]);
-
-
-    const category = useSelector(state => state.allCategory.category)
-    const brand = useSelector(state => state.allBrand.brand)
-    const subcategory = useSelector(state => state.subCategory.subcategory)
-    const product = useSelector(state => state.allproducts.products);
 
     const dispatch = useDispatch();
-
     useEffect(() => {
-        if (!navigator.onLine) {
-            console.log("هناك مشكله فى الاتصال بالانترنت", "warn")
-            return;
-        }
         dispatch(getAllCategory());
         dispatch(getAllBrand());
     }, [])
+    //get last catgeory state from redux
+    const category = useSelector(state => state.allCategory.category)
+    //get last brand state from redux
+    const brand = useSelector(state => state.allBrand.brand)
+
+    //get last sub cat state from redux
+    const subCat = useSelector(state => state.subCategory.subcategory)
 
     const onSelect = (selectedList) => {
         setSeletedSubID(selectedList)
@@ -49,33 +29,22 @@ const AdminAddProductsHook = () => {
         setSeletedSubID(selectedList)
     }
 
-    const onSelectCategory = async (e) => {
-        if (e.target.value !== 0) {
-            await dispatch(getSubCategory(e.target.value))
-        }
-        setCatID(e.target.value)
-    }
+    const [options, setOptions] = useState([]);
 
-    useEffect(() => {
-        if (subcategory.data) {
-            setOptions(subcategory.data)
-        }
-    }, [CatID])
+    //values images products
+    const [images, setImages] = useState({});
+    //values state
+    const [prodName, setProdName] = useState('');
+    const [prodDescription, setProdDescription] = useState('');
+    const [priceBefore, setPriceBefore] = useState('السعر قبل الخصم');
+    const [priceAftr, setPriceAftr] = useState('السعر بعد الخصم');
+    const [qty, setQty] = useState('الكمية المتاحة');
+    const [CatID, setCatID] = useState('');
+    const [BrandID, SetBrandID] = useState('');
+    const [subCatID, setSubCatID] = useState([]);
+    const [seletedSubID, setSeletedSubID] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    const onSelectBrand = (e) => {
-        e.persist();
-        SetBrandID(e.target.value)
-    }
-
-    const handelChangeComplete = (color) => {
-        setShowColor(!showColor);
-        setColors([...colors, color.hex]);
-    }
-
-    const removeColor = (color) => {
-        const newColor = colors.filter((e) => e !== color)
-        setColors(newColor);
-    }
 
     //to change name state
     const onChangeProdName = (event) => {
@@ -106,6 +75,43 @@ const AdminAddProductsHook = () => {
         setShowColor(!showColor)
     }
 
+    //to show hide color picker
+    const [showColor, setShowColor] = useState(false);
+    //to store all pick color
+    const [colors, setColors] = useState([]);
+    //when choose new color
+    const handelChangeComplete = (color) => {
+        setColors([...colors, color.hex])
+        setShowColor(!showColor)
+    }
+    const removeColor = (color) => {
+        const newColor = colors.filter((e) => e !== color)
+        setColors(newColor)
+    }
+
+
+
+    //when selet category store id
+    const onSeletCategory = async (e) => {
+        if (e.target.value !== 0) {
+            await dispatch(getOneCategory(e.target.value))
+        }
+        setCatID(e.target.value)
+    }
+    useEffect(() => {
+        if (CatID !== 0) {
+            if (subCat.data) {
+
+                setOptions(subCat.data)
+            }
+        }
+    }, [CatID])
+
+    //when selet brand store id
+    const onSeletBrand = (e) => {
+        SetBrandID(e.target.value)
+    }
+
     //to convert base 64 to file
     function dataURLtoFile(dataurl, filename) {
 
@@ -122,21 +128,22 @@ const AdminAddProductsHook = () => {
         return new File([u8arr], filename, { type: mime });
     }
 
-
+    //to save data 
     const handelSubmit = async (e) => {
         e.preventDefault();
-
         if (CatID === 0 || prodName === "" || prodDescription === "" || images.length <= 0 || priceBefore <= 0) {
-            console.log("من فضلك اكمل البيانات", "warn")
+            notify("من فضلك اكمل البيانات", "warn")
             return;
         }
 
+        //convert base 64 image to file 
+        const imgCover = dataURLtoFile(images[0], Math.random() + ".png")
+        //convert array of base 64 image to file 
         const itemImages = Array.from(Array(Object.keys(images).length).keys()).map(
             (item, index) => {
                 return dataURLtoFile(images[index], Math.random() + ".png")
-            })
-
-        const imgCover = dataURLtoFile(images[0], Math.random() + ".png")
+            }
+        )
 
         const formData = new FormData();
         formData.append("title", prodName);
@@ -146,24 +153,25 @@ const AdminAddProductsHook = () => {
         formData.append("imageCover", imgCover);
         formData.append("category", CatID);
         formData.append("brand", BrandID);
+        itemImages.map((item) => formData.append("images", item))
 
-        colors.map((color) =>
-            formData.append("availableColors", color)
-        )
+
+        colors.map((color) => formData.append("availableColors", color))
         seletedSubID.map((item) => formData.append("subcategory", item._id))
 
-        itemImages.map((image) => formData.append("images", image))
 
         setLoading(true)
         await dispatch(createProduct(formData))
         setLoading(false)
     }
 
+    //get create meesage
+    const product = useSelector(state => state.allproducts.products)
 
     useEffect(() => {
 
         if (loading === false) {
-            // setCatID(0)
+           // setCatID(0)
             setColors([])
             setImages([])
             setProdName('')
@@ -177,14 +185,16 @@ const AdminAddProductsHook = () => {
 
             if (product) {
                 if (product.status === 201) {
-                    console.log("تم الاضافة بنجاح", "success")
+                    notify("تم الاضافة بنجاح", "success")
                 } else {
-                    console.log("هناك مشكله", "error")
+                    notify("هناك مشكله", "error")
                 }
             }
         }
     }, [loading])
-    return [onChangeDesName, onChangeQty, onChangeColor, onChangePriceAfter, onChangePriceBefor, onChangeProdName, showColor, category, brand, priceAftr, images, setImages, onSelect, onRemove, options, handelChangeComplete, removeColor, onSelectCategory, handelSubmit, onSelectBrand, colors, priceBefore, qty, prodDescription, prodName]
+
+
+    return [onChangeDesName, onChangeQty, onChangeColor, onChangePriceAfter, onChangePriceBefor, onChangeProdName, showColor, category, brand, priceAftr, images, setImages, onSelect, onRemove, options, handelChangeComplete, removeColor, onSeletCategory, handelSubmit, onSeletBrand, colors, priceBefore, qty, prodDescription, prodName]
 
 }
 

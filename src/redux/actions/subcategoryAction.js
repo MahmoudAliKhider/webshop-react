@@ -20,7 +20,7 @@ export const createSubCategory = (data) => async (dispatch) => {
 }
 
 // get subcategory depend on cate
-export const getSubCategory = (id) => async (dispatch) => {
+export const getOneCategory = (id) => async (dispatch) => {
 
     try {
         const response = await useGetData(`categories/${id}/subcategories`);

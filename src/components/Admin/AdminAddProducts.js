@@ -3,11 +3,13 @@ import { Row, Col } from 'react-bootstrap'
 import Multiselect from 'multiselect-react-dropdown';
 import MultiImageInput from 'react-multiple-image-input';
 import { CompactPicker } from 'react-color'
+import { ToastContainer } from 'react-toastify';
 
-import add from '../../images/add.png'
-import AdminAddProductsHook from "../../hook/product/add-products-hook";
+import add from '../../images/add.png';
 
-const [onChangeDesName, onChangeQty, onChangeColor, onChangePriceAfter, onChangePriceBefor, onChangeProdName, showColor, category, brand, priceAftr, images, setImages, onSelect, onRemove, options, handelChangeComplete, removeColor, onSelectCategory, handelSubmit, onSelectBrand, colors, priceBefore, qty, prodDescription, prodName] = AdminAddProductsHook();
+import AdminAddProductsHook from './../../hook/product/add-products-hook'
+const [onChangeDesName, onChangeQty, onChangeColor, onChangePriceAfter, onChangePriceBefor, onChangeProdName, showColor, category, brand, priceAftr, images, setImages, onSelect, onRemove, options, handelChangeComplete, removeColor, onSelectCategory, handelSubmit, onSelectBrand, colors, priceBefore, qty, prodDescription, prodName] =
+    AdminAddProductsHook();
 
 
 const AdminAddProducts = () => {
@@ -64,8 +66,8 @@ const AdminAddProducts = () => {
                         <option value="0">اختر تصنيف </option>
                         {
                             category.data ? (
-                                category.data.map((item) => {
-                                    return (<option key={item._id} value={item._id}>{item.name}</option>)
+                                category.data.map((item,index) => {
+                                    return (<option key={index} value={item._id}>{item.name}</option>)
                                 })
                             ) : null
                         }
@@ -84,8 +86,8 @@ const AdminAddProducts = () => {
                         <option value="0">اختر الماركة </option>
                         {
                             brand.data ? (
-                                brand.data.map((item) => {
-                                    return (<option key={item._id} value={item._id}>{item.name}</option>)
+                                brand.data.map((item,index) => {
+                                    return (<option key={index} value={item._id}>{item.name}</option>)
                                 })
                             ) : null
                         }
@@ -122,6 +124,7 @@ const AdminAddProducts = () => {
                     <button onClick={handelSubmit} className="btn-save d-inline mt-2 ">حفظ التعديلات</button>
                 </Col>
             </Row>
+            <ToastContainer />
         </div>
     )
 }
