@@ -1,4 +1,4 @@
-import { GET_ALL_CATEGORY, GET_ERROR, CREATE_CATEGORY } from '../type';
+import { GET_ALL_CATEGORY, GET_ERROR, CREATE_CATEGORY,GET_ONE_CATEGORY } from '../type';
 import useGetData from '../../hooks/useGetData';
 import { useInsertDataWithImage } from '../../hooks/useInseartData';
 
@@ -48,5 +48,21 @@ export const createCategory = (formData) => async (dispatch) => {
             type: GET_ERROR,
             payload: "Error " + e,
         })
+    }
+}
+
+export const getOneCategory = (id) => async (dispatch) => {
+    try {
+        const response = await useGetData(`/categories/${id}`)
+        dispatch({
+            type: GET_ONE_CATEGORY,
+            payload: response
+        })
+    } catch (error) {
+        dispatch({
+            type: GET_ERROR,
+            payload: "Error " + error,
+        })
+
     }
 }
