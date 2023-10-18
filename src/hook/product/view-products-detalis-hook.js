@@ -1,8 +1,11 @@
 import { useEffect } from 'react'
+
 import { useDispatch, useSelector } from "react-redux";
 import { getOneProduct } from '../../redux/actions/productsAction';
 import { getOneCategory } from '../../redux/actions/categoryAction';
 import { getOneBrand } from '../../redux/actions/brandAction';
+import { getProductLike } from '../../redux/actions/productsAction';
+
 import mobile from '../../images/mobile.png'
 
 const ViewProductsDetalisHook = (prodID) => {
@@ -15,6 +18,7 @@ const ViewProductsDetalisHook = (prodID) => {
     const oneProducts = useSelector((state) => state.allproducts.oneProduct)
     const oneCategory = useSelector((state) => state.allCategory.oneCategory)
     const oneBrand = useSelector((state) => state.allBrand.oneBrand)
+    const productLike = useSelector((state) => state.allproducts.productLike)
 
     let item = [];
     if (oneProducts.data)
@@ -27,7 +31,8 @@ const ViewProductsDetalisHook = (prodID) => {
             dispatch(getOneCategory(item.category))
         if (item.brand)
             dispatch(getOneBrand(item.brand))
-
+        if (item.category)
+            dispatch(getProductLike(item.category))
     }, [item])
 
     let images = []
@@ -49,8 +54,13 @@ const ViewProductsDetalisHook = (prodID) => {
     else
         brand = []
 
+    let prod = []
+    if (productLike)
+        prod = productLike.data;
+    else
+        prod = []
 
-    return [item, images, cat, brand]
+    return [item, images, cat, brand, prod]
 }
 
 export default ViewProductsDetalisHook

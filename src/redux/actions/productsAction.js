@@ -1,4 +1,4 @@
-import { CREATE_PRODUCTS, GET_ERROR, GET_ALL_PRODUCTS, GET_PRODUCT_DETALIS } from '../type';
+import { CREATE_PRODUCTS, GET_ERROR, GET_ALL_PRODUCTS, GET_PRODUCT_DETALIS,GET_PRODUCT_LIKE } from '../type';
 
 import { useInsertDataWithImage } from '../../hooks/useInseartData';
 import useGetData from '../../hooks/useGetData';
@@ -40,6 +40,23 @@ export const getOneProduct = (id) => async (dispatch) => {
         const response = await useGetData(`/products/${id}`);
         dispatch({
             type:  GET_PRODUCT_DETALIS,
+            payload: response,
+            loading: true
+        })
+
+    } catch (e) {
+        dispatch({
+            type: GET_ERROR,
+            payload: "Error " + e,
+        })
+    }
+}
+//get one product with id
+export const getProductLike = (id) => async (dispatch) => {
+    try {
+        const response = await useGetData(`/products?category=${id}`);
+        dispatch({
+            type: GET_PRODUCT_LIKE,
             payload: response,
             loading: true
         })
