@@ -6,6 +6,7 @@ const inital = {
     oneProduct: [],
     productLike: [],
     deleteProducts: [],
+    updateProducts: [],
     loading: true,
 }
 
