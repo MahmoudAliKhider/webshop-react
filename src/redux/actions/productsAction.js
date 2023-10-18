@@ -1,6 +1,7 @@
-import { CREATE_PRODUCTS, GET_ERROR } from '../type';
+import { CREATE_PRODUCTS, GET_ERROR, GET_ALL_PRODUCTS } from '../type';
 
 import { useInsertDataWithImage } from '../../hooks/useInseartData';
+import useGetData from '../../hooks/useGetData';
 
 export const createProduct = (formatData) => async (dispatch) => {
     try {
@@ -15,5 +16,21 @@ export const createProduct = (formatData) => async (dispatch) => {
             payload: "Error " + error,
         })
 
+    }
+}
+export const getAllProducts = (limit) => async (dispatch) => {
+    try {
+        const response = await useGetData(`/products?limit=${limit}`);
+        dispatch({
+            type: GET_ALL_PRODUCTS,
+            payload: response,
+            loading: true
+        })
+
+    } catch (e) {
+        dispatch({
+            type: GET_ERROR,
+            payload: "Error " + e,
+        })
     }
 }
