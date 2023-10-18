@@ -69,6 +69,22 @@ export const getProductLike = (id) => async (dispatch) => {
         })
     }
 }
+export const getAllProductsPage = (page, limit) => async (dispatch) => {
+    try {
+        const response = await useGetData(`/products?page=${page}&limit=${limit}`);
+        dispatch({
+            type: GET_ALL_PRODUCTS,
+            payload: response,
+            loading: true
+        })
+
+    } catch (e) {
+        dispatch({
+            type: GET_ERROR,
+            payload: "Error " + e,
+        })
+    }
+}
 export const deleteProducts = (id) => async (dispatch) => {
     try {
         const response = await useDeleteData(`/products/${id}`);

@@ -9,7 +9,12 @@ import SideFilter from '../../components/Uitily/SideFilter'
 import ViewSearchProductsHook from '../../hook/product/view-search-products-hook';
 
 const ShopProductsPage = () => {
-    const [items] = ViewSearchProductsHook();
+    const [items, pagination, onPress] = ViewSearchProductsHook();
+    if (pagination)
+        var pageCount = pagination;
+    else
+        pageCount = 0;
+
     return (
         <div style={{ minHeight: '670px' }}>
             <CategoryHeader />
@@ -23,7 +28,7 @@ const ShopProductsPage = () => {
                         <CardProductsContainer products={items} title="" btntitle="" />
                     </Col>
                 </Row>
-                <Pagination />
+                <Pagination pageCount={pageCount} onPress={onPress} />
             </Container>
         </div>
     )

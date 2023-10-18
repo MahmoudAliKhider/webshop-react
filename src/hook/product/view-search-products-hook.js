@@ -6,7 +6,7 @@ import { getAllProductsPage } from './../../redux/actions/productsAction';
 const ViewSearchProductsHook = () => {
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getAllProducts(12))
+        dispatch(getAllProducts(5))
     }, [])
 
     const allProducts = useSelector((state) => state.allproducts.allProducts)
@@ -17,9 +17,17 @@ const ViewSearchProductsHook = () => {
     else
         items = []
 
-   
+    let pagination = [];
+    if (allProducts.paginationResult)
+        pagination = allProducts.paginationResult.numberOfPages;
+    else
+        pagination = []
 
-    return [items]
+    const onPress = async (page) => {
+        await dispatch(getAllProductsPage(page, 5))
+    }
+
+    return [items, pagination, onPress]
 
 }
 
