@@ -46,7 +46,9 @@ const AdminAllProductsCard = ({ item }) => {
                 <Row className="d-flex justify-content-center px-2">
                     <Col className=" d-flex justify-content-between">
                         <div onClick={handleShow} className="d-inline item-delete-edit">ازاله</div>
-                        <div className="d-inline item-delete-edit">تعديل</div>
+                        <Link to={`/admin/editproduct/${item._id}`} style={{ textDecoration: "none" }}>
+                            <div className="d-inline item-delete-edit">تعديل</div>
+                        </Link>
                     </Col>
                 </Row>
                 <Link to={`/product/${item._id}`} style={{ textDecoration: "none" }}>

@@ -1,8 +1,9 @@
-import { CREATE_PRODUCTS, GET_ERROR, GET_ALL_PRODUCTS, GET_PRODUCT_DETALIS, GET_PRODUCT_LIKE, DELETE_PRODUCTS } from '../type';
+import { CREATE_PRODUCTS, GET_ERROR, GET_ALL_PRODUCTS, GET_PRODUCT_DETALIS, GET_PRODUCT_LIKE, DELETE_PRODUCTS,UPDATE_PRODUCTS } from '../type';
 
 import { useInsertDataWithImage } from '../../hooks/useInseartData';
 import useGetData from '../../hooks/useGetData';
 import useDeleteData from "../../hooks/useDeleteData";
+import { useInUpdateDataWithImage } from '../../hooks/useUpdateData';
 
 export const createProduct = (formatData) => async (dispatch) => {
     try {
@@ -90,6 +91,22 @@ export const deleteProducts = (id) => async (dispatch) => {
         const response = await useDeleteData(`/products/${id}`);
         dispatch({
             type: DELETE_PRODUCTS,
+            payload: response,
+            loading: true
+        })
+
+    } catch (e) {
+        dispatch({
+            type: GET_ERROR,
+            payload: "Error " + e,
+        })
+    }
+}
+export const updateProducts = (id,data) => async (dispatch) => {
+    try {
+        const response = await useInUpdateDataWithImage(`/products/${id}`,data);
+        dispatch({
+            type: UPDATE_PRODUCTS,
             payload: response,
             loading: true
         })
