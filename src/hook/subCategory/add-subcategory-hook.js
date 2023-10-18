@@ -1,14 +1,13 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux'
 
 import { createSubCategory } from '../../redux/actions/subcategoryAction'
+import { useDispatch, useSelector } from 'react-redux'
 import notify from '../../hook/useNotifaction'
 import { getAllCategory } from '../../redux/actions/categoryAction'
+import { useEffect, useState } from 'react';
 
 const AddSubcategoryhook = () => {
 
-    const dispatch = useDispatch() ;
-
+    const dispatch = useDispatch();
     useEffect(() => {
         if (!navigator.onLine) {
             notify("هناك مشكله فى الاتصال بالانترنت", "warn")

@@ -6,7 +6,7 @@ import  AddSubcategoryhook  from '../../hook/subCategory/add-subcategory-hook'
 
 const AdminAddSubCategory = () => {
 
- const [ name, category, handelChange, handelSubmit, onChangeName] = AddSubcategoryhook();
+ const [id, name, loading, category, subcategory, handelChange, handelSubmit, onChangeName] = AddSubcategoryhook();
 
 
     return (
@@ -25,8 +25,8 @@ const AdminAddSubCategory = () => {
                         <option value="0">اختر تصنيف </option>
                         {
                             category.data ? (
-                                category.data.map((item) => {
-                                    return (<option key={item._id} value={item._id}>{item.name}</option>)
+                                category.data.map((item,index) => {
+                                    return (<option key={index} value={item._id}>{item.name}</option>)
                                 })
                             ) : null
                         }
