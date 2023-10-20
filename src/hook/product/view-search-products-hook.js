@@ -12,7 +12,8 @@ const ViewSearchProductsHook = () => {
         if (localStorage.getItem("searchWord") != null)
             word = localStorage.getItem("searchWord");
 
-        await dispatch(getAllProductsSearch(`limit=${limit}&keyword=${word}`))
+        sortData();
+        await dispatch(getAllProductsSearch(`sort=${sort}&limit=${limit}&keyword=${word}`))
 
     }
     useEffect(() => {
@@ -45,10 +46,36 @@ const ViewSearchProductsHook = () => {
             results = 0;
     } catch (error) { }
 
-   
+
 
     const onPress = async (page) => {
-        await dispatch(getAllProductsPage(page, limit))
+        let word = "";
+        if (localStorage.getItem("searchWord") != null)
+            word = localStorage.getItem("searchWord");
+
+        sortData();
+        await dispatch(getAllProductsSearch(`sort=${sort}&limit=${limit}&page=${page}&keyword=${word}`))
+    }
+
+    let sortType = '', sort;
+
+    const sortData = () => {
+        if (localStorage.getItem("sortType") != null) {
+            sortType = localStorage.getItem('sortType')
+        }
+        else {
+            sortType = '';
+        }
+        if (sortType === "السعر من الاقل للاعلي")
+            sort = "+price"
+        else if (sortType === "السعر من الاعلي للاقل")
+            sort = "-price"
+        else if (sortType === "")
+            sort = ""
+        else if (sortType === "الاكثر مبيعا")
+            sort = "-sold"
+        else if (sortType === "الاعلي تقييما")
+            sort = "-quantity"
     }
 
     return [items, pagination, onPress, getProduct, results]
