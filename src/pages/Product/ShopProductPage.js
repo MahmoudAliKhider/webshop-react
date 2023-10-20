@@ -9,7 +9,7 @@ import SideFilter from '../../components/Uitily/SideFilter'
 import ViewSearchProductsHook from '../../hook/product/view-search-products-hook';
 
 const ShopProductsPage = () => {
-    const [items, pagination, onPress] = ViewSearchProductsHook();
+    const [items, pagination, onPress,,results] = ViewSearchProductsHook();
     if (pagination)
         var pageCount = pagination;
     else
@@ -19,7 +19,7 @@ const ShopProductsPage = () => {
         <div style={{ minHeight: '670px' }}>
             <CategoryHeader />
             <Container>
-                <SearchCountResult title={`${items.length} نتجية بحث`} />
+                <SearchCountResult title={`${results} نتجية بحث`} />
                 <Row className='d-flex flex-row'>
                     <Col sm="2" xs="2" md="1" className='d-flex'>
                         <SideFilter />

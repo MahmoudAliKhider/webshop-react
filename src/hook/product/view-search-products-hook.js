@@ -37,12 +37,21 @@ const ViewSearchProductsHook = () => {
             pagination = []
     } catch (error) { }
 
+    let results = 0;
+    try {
+        if (allProducts.results)
+            results = allProducts.results;
+        else
+            results = 0;
+    } catch (error) { }
+
+   
 
     const onPress = async (page) => {
         await dispatch(getAllProductsPage(page, limit))
     }
 
-    return [items, pagination, onPress, getProduct]
+    return [items, pagination, onPress, getProduct, results]
 
 }
 

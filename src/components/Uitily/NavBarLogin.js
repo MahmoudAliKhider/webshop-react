@@ -6,7 +6,12 @@ import cart from '../../images/cart.png'
 import NavbarSearchHook from "../../hook/search/navbar-search-hook";
 
 const NavBarLogin = () => {
-  const [onChangeSearch, searchword] = NavbarSearchHook()
+  const [onChangeSearch, searchword] = NavbarSearchHook();
+
+  let word = "";
+  if (localStorage.getItem("searchWord") != null)
+    word = localStorage.getItem("searchWord");
+
   return (
     <Navbar className="sticky-top" bg="dark" variant="dark" expand="sm">
       <Container>
@@ -19,7 +24,7 @@ const NavBarLogin = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <FormControl
             onChange={onChangeSearch}
-            value={searchword}
+            value={word}
             type="search"
             placeholder="ابحث..."
             className="me-2 w-100 text-center"
