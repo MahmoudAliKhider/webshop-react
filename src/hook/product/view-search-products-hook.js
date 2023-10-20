@@ -8,12 +8,9 @@ const ViewSearchProductsHook = () => {
     let limit = 5;
 
     const getProduct = async () => {
-        let word = "";
-        if (localStorage.getItem("searchWord") != null)
-            word = localStorage.getItem("searchWord");
-
         sortData();
-        await dispatch(getAllProductsSearch(`sort=${sort}&limit=${limit}&keyword=${word}`))
+        getStorge();
+        await dispatch(getAllProductsSearch(`sort=${sort}&limit=${limit}&keyword=${word}&${queryCat}&${brandCat}${pricefromString}${priceToString}`))
 
     }
     useEffect(() => {
@@ -49,13 +46,39 @@ const ViewSearchProductsHook = () => {
 
 
     const onPress = async (page) => {
-        let word = "";
-        if (localStorage.getItem("searchWord") != null)
-            word = localStorage.getItem("searchWord");
-
         sortData();
-        await dispatch(getAllProductsSearch(`sort=${sort}&limit=${limit}&page=${page}&keyword=${word}`))
+        getStorge();
+        await dispatch(getAllProductsSearch(`sort=${sort}&limit=${limit}&page=${page}&keyword=${word}&${queryCat}&${brandCat}${pricefromString}${priceToString}`))
     }
+
+    let pricefromString = "", priceToString = ""
+    let word = "", queryCat = "", brandCat = "", priceTo = "", priceFrom = "";
+    const getStorge = () => {
+        if (localStorage.getItem("searchWord") != null)
+            word = localStorage.getItem("searchWord")
+        if (localStorage.getItem("catCecked") != null)
+            queryCat = localStorage.getItem("catCecked")
+        if (localStorage.getItem("brandCecked") != null)
+            brandCat = localStorage.getItem("brandCecked")
+        if (localStorage.getItem("priceTo") != null)
+            priceTo = localStorage.getItem("priceTo")
+        if (localStorage.getItem("priceFrom") != null)
+            priceFrom = localStorage.getItem("priceFrom")
+
+        if (priceFrom === "" || priceFrom <= 0) {
+            pricefromString = ""
+        } else {
+            pricefromString = `&price[gt]=${priceFrom}`
+        }
+
+        if (priceTo === "" || priceTo <= 0) {
+            priceToString = ""
+        } else {
+            priceToString = `&price[lte]=${priceTo}`
+        }
+
+    }
+
 
     let sortType = '', sort;
 
