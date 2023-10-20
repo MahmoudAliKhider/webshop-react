@@ -1,33 +1,48 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from '../../redux/actions/productsAction';
 import { getAllProductsPage } from './../../redux/actions/productsAction';
-
+import { getAllProductsSearch } from "../../redux/actions/productsAction"
 const ViewSearchProductsHook = () => {
     const dispatch = useDispatch();
+    let limit = 5;
+
+    const getProduct = async () => {
+        let word = "";
+        if (localStorage.getItem("searchWord") != null)
+            word = localStorage.getItem("searchWord");
+
+        await dispatch(getAllProductsSearch(`limit=${limit}&keyword=${word}`))
+
+    }
     useEffect(() => {
-        dispatch(getAllProducts(5))
+        getProduct('');
     }, [])
 
     const allProducts = useSelector((state) => state.allproducts.allProducts)
 
     let items = [];
-    if (allProducts.data)
-        items = allProducts.data;
-    else
-        items = []
+    try {
+        if (allProducts.data)
+            items = allProducts.data;
+        else
+            items = []
+    } catch (error) { }
 
     let pagination = [];
-    if (allProducts.paginationResult)
-        pagination = allProducts.paginationResult.numberOfPages;
-    else
-        pagination = []
+    try {
+        if (allProducts.paginationResult)
+            pagination = allProducts.paginationResult.numberOfPages;
+        else
+            pagination = []
+    } catch (error) { }
+
 
     const onPress = async (page) => {
-        await dispatch(getAllProductsPage(page, 5))
+        await dispatch(getAllProductsPage(page, limit))
     }
 
-    return [items, pagination, onPress]
+    return [items, pagination, onPress, getProduct]
 
 }
 
