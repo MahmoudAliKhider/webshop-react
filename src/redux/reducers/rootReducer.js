@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux'
 import categoryReducer from './categoryReducer';
-import brandReducer from './brandReducer'
-import subcategoryReducer from './subcategoryReducer'
-import productsReducer from './productsReducer'
+import brandReducer from './brandReducer';
+import subcategoryReducer from './subcategoryReducer';
+import productsReducer from './productsReducer';
+import authReducer from "./authRegister";
 
 export default combineReducers({
     allCategory: categoryReducer,
     allBrand: brandReducer,
     subCategory: subcategoryReducer,
-    allproducts: productsReducer
+    allproducts: productsReducer,
+    authReducer: authReducer
 })
