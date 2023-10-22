@@ -1,7 +1,7 @@
-import { CREATE_NEW_USER, LOGIN_USER, GET_CURERNT_USER, FOREGT_PASSWORD, VERIFY_PASSWORD } from '../type'
+import { CREATE_NEW_USER, LOGIN_USER, GET_CURERNT_USER, FOREGT_PASSWORD, VERIFY_PASSWORD, RESET_PASSWORD } from '../type'
 import { useInsertData } from "../../hooks/useInseartData";
 import { useGetDataToken } from '../../hooks/useGetData';
-
+import { useInsUpdateData } from "../../hooks/useUpdateData"
 export const createNewUser = (data) => async (dispatch) => {
     try {
         const response = await useInsertData(`/auth/signup`, data);
@@ -78,6 +78,22 @@ export const verifyPassword = (data) => async (dispatch) => {
     } catch (e) {
         dispatch({
             type: VERIFY_PASSWORD,
+            payload: e.response,
+        })
+    }
+}
+export const resetPassword = (data) => async (dispatch) => {
+    try {
+        const response = await useInsUpdateData(`/auth/resetPassword`, data);
+        dispatch({
+            type: RESET_PASSWORD,
+            payload: response,
+            loading: true
+        })
+
+    } catch (e) {
+        dispatch({
+            type: RESET_PASSWORD,
             payload: e.response,
         })
     }
