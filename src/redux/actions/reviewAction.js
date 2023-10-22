@@ -1,5 +1,5 @@
 import { CREATE_REVIEW } from '../type'
-import { useInsertData } from '../../hooks/useInsertData'
+import { useInsertData } from '../../hooks/useInseartData'
 
 export const createReview = (prodID, body) => async (dispatch) => {
     try {
