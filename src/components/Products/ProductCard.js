@@ -49,7 +49,7 @@ const ProductCard = ({item}) => {
                                     height="16px"
                                     width="16px"
                                 />
-                                <div className="card-rate mx-2">{item.ratingsQuantity}</div>
+                                <div className="card-rate mx-2">{item.ratingsAverage || 0}</div>
                             </div>
                             <div className="d-flex">
                                 <div className="card-price">{item.price}</div>
