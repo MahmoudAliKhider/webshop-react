@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { createNewUser, forgetPassword, loginUser } from '../../redux/actions/authAction';
 import { useNavigate } from 'react-router-dom'
 import notify from '../useNotifaction';
-import { createReview, deleteReviewOnProduct } from './../../redux/actions/reviewAction';
+import { deleteReviewOnProduct } from './../../redux/actions/reviewAction';
 const DeleteRateHook = (review) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();

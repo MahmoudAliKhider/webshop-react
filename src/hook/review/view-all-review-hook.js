@@ -8,9 +8,7 @@ const ViewAllReviewHook = (id) => {
     const [loading, setLoading] = useState(true);
 
     const allReview = useSelector(state => state.reviewReducer.allReviewProduct);
-    if(allReview){
-        console.log(allReview)
-    }
+
     useEffect(() => {
         setLoading(false)
         dispatch(allReviewProduct(id, 1, 5))
