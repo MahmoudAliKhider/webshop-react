@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import ResetPasswordHook from '../../hook/auth/reset-password-hook';
 const RsetPasswordPage = () => {
 
-    const [password, confirmPassword, , OnChangePassword, OnChangeConfirmPassword, onSubmit] = ResetPasswordHook()
+    const [password, confirmPassword , OnChangePassword, OnChangeConfirmPassword, onSubmit] = ResetPasswordHook()
 
     return (
         <Container style={{ minHeight: "690px" }}>
