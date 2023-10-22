@@ -1,7 +1,8 @@
-import { CREATE_REVIEW } from '../type';
+import { CREATE_REVIEW,ALL_REVIEW_PRODUCT } from '../type';
 
 const inital = {
     createView: [],
+    allReviewProduct:[],
     loading: true,
 }
 
@@ -13,7 +14,12 @@ const reviewReducer = (state = inital, action) => {
                 createView: action.payload,
                 loading: false,
             }
-
+            case ALL_REVIEW_PRODUCT:
+                return {
+                    ...state,
+                    allReviewProduct: action.payload,
+                    loading: false,
+                }
         default:
             return state;
     }
