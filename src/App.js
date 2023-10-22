@@ -35,6 +35,7 @@ import UserProfilePage from "./pages/User/UserProfilePage";
 
 import AdminEditProductsPage from "./pages/Admin/AdminEditProductsPage";
 import ForgetPasswordPage from "./pages/Auth/ForgetPasswordPage";
+import VerifyPasswordPage from "./pages/Auth/VerifyPasswordPage";
 
 
 function App() {
@@ -67,7 +68,9 @@ function App() {
           <Route path="user/add-address" element={<UserAddAddressPage />} />
           <Route path="user/edit-address" element={<UserEditAddressPage />} />
           <Route path="user/profile" element={<UserProfilePage />} />
+
           <Route path="/user/forget-password" element={<ForgetPasswordPage />} />
+          <Route path="/user/verify-code" element={<VerifyPasswordPage />} />
 
           <Route path="/admin/editproduct/:id" element={<AdminEditProductsPage />} />
           
