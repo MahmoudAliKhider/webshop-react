@@ -14,8 +14,7 @@ const CardProductsContainer = ({ title, btntitle, pathText, products }) => {
                 {
                     products ? (
                         products.map((item, index) =>
-                            <ProductCard key={index} favProd={favProd} item={item} />
-                        )
+                            <ProductCard  favProd={favProd} key={index} item={item} />)
                     ) : null
                 }
 

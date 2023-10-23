@@ -8,7 +8,7 @@ import { ToastContainer } from 'react-toastify';
 
 
 const ProductCard = ({ item, favProd }) => {
-    const [removeToWishListData, addToWishListData, handelFav, favImg] = ProductCardHook(item,favProd);
+    const [removeToWishListData, addToWishListData, handelFav, favImg] = ProductCardHook(item, favProd);
 
     return (
         <Col xs="6" sm="6" md="4" lg="3" className="d-flex">
