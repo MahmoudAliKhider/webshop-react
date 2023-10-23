@@ -64,9 +64,10 @@ const ProductCardHook = (item, favProd) => {
 
     useEffect(() => {
         if (loadingAdd === false) {
+            console.log(resAdd)
             if (resAdd && resAdd.status === 200) {
                 notify("تمت اضافة المنتج للمفضلة بنجاح", "success")
-            } else if (resAdd && resAdd.status === 401) {
+            } else if (resAdd && resAdd.status === 500) {
                 notify("انتا غير مسجل", "error")
             }
         }
@@ -76,9 +77,10 @@ const ProductCardHook = (item, favProd) => {
 
 
         if (loadingRemove === false) {
+            console.log(resRemove)
             if (resRemove && resRemove.status === "success") {
                 notify("تمت حذف المنتج من المفضلة بنجاح", "warn")
-            } else if (resAdd && resAdd.status === 401) {
+            } else if (resAdd && resAdd.status === 500) {
                 notify("انتا غير مسجل", "error")
             }
 

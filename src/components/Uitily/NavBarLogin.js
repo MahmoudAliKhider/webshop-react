@@ -20,6 +20,7 @@ const NavBarLogin = () => {
 
   const logOut = () => {
     localStorage.removeItem("user")
+    localStorage.removeItem("token")
     setUser('')
   }
 
