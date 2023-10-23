@@ -26,7 +26,7 @@ const CardContainerHook = () => {
             } else setFavProd([])
         }
     }, [loading])
-    
+
     return [favProd]
 
 }
