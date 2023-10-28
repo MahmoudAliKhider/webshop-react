@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Row } from 'react-bootstrap';
-
-import ProductCard from '../Products/ProductCard';
-import Pagination from '../Uitily/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
 import {getProductWishList} from "../../redux/actions/wishListAction"
 import CardProductsContainer from './../Products/CardProductsContainer';

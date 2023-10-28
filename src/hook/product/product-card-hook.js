@@ -75,7 +75,6 @@ const ProductCardHook = (item, favProd) => {
 
     useEffect(() => {
 
-
         if (loadingRemove === false) {
             console.log(resRemove)
             if (resRemove && resRemove.status === "success") {
