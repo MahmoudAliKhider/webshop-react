@@ -4,6 +4,7 @@ import logo from '../../images/logo.png'
 import login from '../../images/login.png'
 import cart from '../../images/cart.png'
 import NavbarSearchHook from "../../hook/search/navbar-search-hook";
+import GetAllUserCartHook from './../../hook/cart/get-all-user-cart-hook';
 
 const NavBarLogin = () => {
   const [onChangeSearch, searchword] = NavbarSearchHook();
@@ -24,6 +25,7 @@ const NavBarLogin = () => {
     setUser('')
   }
 
+  const [itemsNum] = GetAllUserCartHook()
   return (
     <Navbar className="sticky-top" bg="dark" variant="dark" expand="sm">
       <Container>
@@ -64,10 +66,14 @@ const NavBarLogin = () => {
                 </Nav.Link>)
             }
             <Nav.Link href='/cart'
-              className="nav-text d-flex mt-3 justify-content-center"
+              className="nav-text position-relative d-flex mt-3 justify-content-center"
               style={{ color: "white" }}>
               <img src={cart} className="login-img" alt="sfvs" />
               <p style={{ color: "white" }}>العربه</p>
+              <span class="position-absolute top-10 start-0 translate-middle badge rounded-pill bg-danger">
+                {itemsNum || 0}
+              </span>
+
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

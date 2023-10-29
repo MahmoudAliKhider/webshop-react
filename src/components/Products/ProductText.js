@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import ViewProductsDetalisHook from '../../hook/product/view-products-detalis-hook';
@@ -7,6 +7,13 @@ const ProductText = () => {
     const { id } = useParams();
     const [item, images, cat, brand] = ViewProductsDetalisHook(id);
 
+    const [indexColor, setIndexColor] = useState("");
+    const [colorText, setColorText] = useState("");
+
+    const colorClick = (index, color) => {
+        setIndexColor(index);
+        setColorText(color)
+    }
     return (
         <div>
             <Row className="mt-2">
@@ -31,8 +38,9 @@ const ProductText = () => {
                         item.availableColors ? (item.availableColors.map((color, index) => {
                             return (<div
                                 key={index}
-                                className="color ms-2 border"
-                                style={{ backgroundColor: color }}></div>)
+                                onClick={() => colorClick(index, color)}
+                                className="color ms-2 "
+                                style={{ backgroundColor: color, border: indexColor === index ? "2px solid black" : "none" }}></div>)
                         })) : null
                     }
                 </Col>
