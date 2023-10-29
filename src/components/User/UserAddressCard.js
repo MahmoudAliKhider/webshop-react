@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import { Row, Col, Modal, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import deleteicon from '../../images/delete.png'
-import { useDispatch } from 'react-redux';
-import { deleteUserAddress } from './../../redux/actions/userAddressesAction';
+import editicon from '../../images/edit.png'
 import DeleteAddressHook from './../../hook/user/delete-address-hook';
 const UserAddressCard = ({ item }) => {
 
@@ -38,7 +37,7 @@ const UserAddressCard = ({ item }) => {
                                 <img
                                     alt=""
                                     className="ms-1 mt-2"
-                                    src={deleteicon}
+                                    src={editicon}
                                     height="17px"
                                     width="15px"
                                 />
