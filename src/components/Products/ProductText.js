@@ -1,19 +1,16 @@
 import React, { useState } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
-import ViewProductsDetalisHook from '../../hook/product/view-products-detalis-hook';
+import { ToastContainer, toast } from 'react-toastify';
 
+import ViewProductsDetalisHook from '../../hook/product/view-products-detalis-hook';
+import AddToCartHook from './../../hook/cart/add-to-cart-hook';
 const ProductText = () => {
     const { id } = useParams();
     const [item, images, cat, brand] = ViewProductsDetalisHook(id);
 
-    const [indexColor, setIndexColor] = useState("");
-    const [colorText, setColorText] = useState("");
+    const [colorClick, indexColor, addToCartHandel] = AddToCartHook(id,item)
 
-    const colorClick = (index, color) => {
-        setIndexColor(index);
-        setColorText(color)
-    }
     return (
         <div>
             <Row className="mt-2">
@@ -59,9 +56,10 @@ const ProductText = () => {
             <Row className="mt-4">
                 <Col md="12">
                     <div className="product-price d-inline px-3 py-3 border">{item.price} جنية</div>
-                    <div className="product-cart-add px-3 py-3 d-inline mx-3">اضف للعربة</div>
+                    <div onClick={addToCartHandel} className="product-cart-add px-3 py-3 d-inline mx-3">اضف للعربة</div>
                 </Col>
             </Row>
+            <ToastContainer />
         </div>
     )
 }

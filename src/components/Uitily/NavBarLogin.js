@@ -25,7 +25,7 @@ const NavBarLogin = () => {
     setUser('')
   }
 
-  const [itemsNum] = GetAllUserCartHook()
+  const [itemsNum, cartItems, totalCartPrice, couponNameRes, totalCartPriceAfterDiscount] = GetAllUserCartHook()
   return (
     <Navbar className="sticky-top" bg="dark" variant="dark" expand="sm">
       <Container>
