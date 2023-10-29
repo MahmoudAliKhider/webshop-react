@@ -69,7 +69,7 @@ function App() {
           <Route path="user/favoriteproducts" element={<UserFavoriteProductsPage />} />
           <Route path="user/addresses" element={<UserAllAddresPage />} />
           <Route path="user/add-address" element={<UserAddAddressPage />} />
-          <Route path="user/edit-address" element={<UserEditAddressPage />} />
+          <Route path="user/edit-address/:id" element={<UserEditAddressPage />} />
           <Route path="user/profile" element={<UserProfilePage />} />
 
           <Route path="/user/forget-password" element={<ForgetPasswordPage />} />
@@ -79,6 +79,7 @@ function App() {
           <Route path="/admin/editproduct/:id" element={<AdminEditProductsPage />} />
           <Route path="/admin/addcoupon" element={<AdminAddCouponPage />} />
           <Route path="/admin/editcoupon/:id" element={<AdminEditCouponPage />} />
+
         </Routes>
       </BrowserRouter>
       <Footer />
