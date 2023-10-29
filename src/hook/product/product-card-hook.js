@@ -49,9 +49,6 @@ const ProductCardHook = (item, favProd) => {
         setLoadingAdd(false)
     }
 
-
-
-
     const removeToWishListData = async () => {
         setIsFav(false)
         setFavImg(favoff)
