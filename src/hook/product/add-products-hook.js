@@ -1,5 +1,5 @@
 
-import  { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { getOneCategory } from '../../redux/actions/subcategoryAction';
 import { createProduct } from '../../redux/actions/productsAction';
 import notify from './../../hook/useNotifaction';
@@ -104,7 +104,8 @@ const AdminAddProductsHook = () => {
 
                 setOptions(subCat.data)
             }
-        }
+        } else
+            setOptions([])
     }, [CatID])
 
     //when selet brand store id
@@ -150,19 +151,27 @@ const AdminAddProductsHook = () => {
         formData.append("description", prodDescription);
         formData.append("quantity", qty);
         formData.append("price", priceBefore);
-        formData.append("imageCover", imgCover);
+        formData.append("priceAfterDiscount", priceAftr);
         formData.append("category", CatID);
         formData.append("brand", BrandID);
-        itemImages.map((item) => formData.append("images", item))
 
+        setTimeout(() => {
+            formData.append("imageCover", imgCover);
+            itemImages.map((item) => formData.append("images", item))
+        }, 1000);
 
+        setTimeout(() => {
+            console.log(imgCover)
+            console.log(itemImages)
+        }, 1000);
         colors.map((color) => formData.append("availableColors", color))
         seletedSubID.map((item) => formData.append("subcategory", item._id))
+        setTimeout(async () => {
+            setLoading(true)
+            await dispatch(createProduct(formData))
+            setLoading(false)
+        }, 1000);
 
-
-        setLoading(true)
-        await dispatch(createProduct(formData))
-        setLoading(false)
     }
 
     //get create meesage
@@ -171,7 +180,7 @@ const AdminAddProductsHook = () => {
     useEffect(() => {
 
         if (loading === false) {
-           // setCatID(0)
+            // setCatID(0)
             setColors([])
             setImages([])
             setProdName('')
@@ -184,7 +193,7 @@ const AdminAddProductsHook = () => {
             setTimeout(() => setLoading(true), 1500)
 
             if (product) {
-                if (product.status === 201 || 200) {
+                if (product.status === 201) {
                     notify("تم الاضافة بنجاح", "success")
                 } else {
                     notify("هناك مشكله", "error")

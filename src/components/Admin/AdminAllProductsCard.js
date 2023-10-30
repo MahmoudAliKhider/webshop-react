@@ -16,6 +16,8 @@ const AdminAllProductsCard = ({ item }) => {
         setShow(false);
         window.location.reload();
     }
+    const imageUrl = `http://127.0.0.1:8000/products/${item.imageCover}`;
+
     return (
         <Col xs="12" sm="6" md="5" lg="4" className="d-flex">
 
@@ -52,7 +54,7 @@ const AdminAllProductsCard = ({ item }) => {
                     </Col>
                 </Row>
                 <Link to={`/product/${item._id}`} style={{ textDecoration: "none" }}>
-                    <Card.Img style={{ height: "228px", width: "100%" }} src={item.imageCover} />
+                    <Card.Img style={{ height: "228px", width: "100%" }} src={imageUrl} />
                     <Card.Body>
                         <Card.Title>
                             <div className="card-title">
@@ -63,8 +65,10 @@ const AdminAllProductsCard = ({ item }) => {
                             <div className="d-flex justify-content-between">
                                 <div className="card-rate">{item.ratingsQuantity}</div>
                                 <div className="d-flex">
+                                    <div className="card-price">{item.priceAfterDiscount >= 1 ?
+                                        (<div><span style={{ textDecorationLine: 'line-through' }}>{item.price}</span> {item.priceAfterDiscount}</div>)
+                                        : item.price}</div>
                                     <div className="card-currency mx-1">جنيه</div>
-                                    <div className="card-price">{item.price}</div>
                                 </div>
                             </div>
                         </Card.Text>

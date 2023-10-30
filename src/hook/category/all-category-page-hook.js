@@ -15,12 +15,14 @@ const AllCategoryHook = () => {
     const loading = useSelector(state => state.allCategory.loading);
 
     let pageCount = 0;
-    if (category.paginationResult) {
-        pageCount = category.paginationResult.numberOfPages
-    }
-
+    try {
+        if (category.paginationResult)
+            pageCount = category.paginationResult.numberOfPages
+    } catch (e) { }
+    
     const getPage = (page) => {
-        dispatch(getAllCategoryPage(page))
+        dispatch(getAllCategoryPage(page));
+        console.log(page)
     }
     return [category, loading, pageCount, getPage]
 }
