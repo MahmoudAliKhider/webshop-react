@@ -11,7 +11,7 @@ const UserAllOrderCard = ({ item }) => {
 
             <Row className="d-flex mb-2">
                 <Col xs="3" md="2" className="d-flex justify-content-start">
-                    <Link to={`/products/${item.product._id}`} style={{ textDecoration: 'none' }}>
+                    <Link to={`/product/${item.product._id}`} style={{ textDecoration: 'none' }}>
                         <img width="93px" height="120px" src={imageUrl} alt="" />
                     </Link>
                 </Col>
