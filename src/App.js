@@ -69,12 +69,6 @@ function App() {
           <Route path="/products/category/:id" element={<ProductsByCategory />} />
           <Route path="/products/brand/:id" element={<ProductsByBrand />} />
 
-          <Route path="/order/paymethoud" element={
-            <ProtectedRoute auth={isUser}>
-              <ChoosePayMethoud />
-            </ProtectedRoute>
-          } />
-
           <Route element={<ProtectedRoute auth={isAdmin} />}>
             <Route path="/admin/allproducts" element={<AdminAllProductsPage />} />
             <Route path="admin/allorders" element={<AdminAllOrdersPage />} />
@@ -91,6 +85,7 @@ function App() {
 
           <Route element={<ProtectedRoute auth={isUser} />}>
             <Route path="user/allorders" element={<UserAllOrdersPage />} />
+            <Route path="/order/paymethoud" element={<ChoosePayMethoud />} />
             <Route path="user/favoriteproducts" element={<UserFavoriteProductsPage />} />
             <Route path="user/addresses" element={<UserAllAddresPage />} />
             <Route path="user/add-address" element={<UserAddAddressPage />} />

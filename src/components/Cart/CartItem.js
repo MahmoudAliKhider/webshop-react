@@ -1,13 +1,12 @@
 import React from 'react'
-import { Col, Row, Modal, Button } from 'react-bootstrap'
+import { Button, Col, Modal, Row } from 'react-bootstrap'
 import mobile from '../../images/mobile.png'
-import deleteicon from '../../images/delete.png';
-import DeleteCartHook from '../../hook/cart/delete-cart-hook';
-
+import deleteicon from '../../images/delete.png'
+import DeleteCartHook from '../../hook/cart/delete-cart-hook'
 const CartItem = ({ item }) => {
   const [handelDeleteCart, show, handleClose, handleShow, handelDeleteItem, itemCount, onChangeCount, handeleUpdateCart] = DeleteCartHook(item)
-  const imageUrl = `http://127.0.0.1:8000/products/${item.product.imageCover}`;
 
+  const imageUrl = `http://127.0.0.1:8000/products/${item.product.imageCover}`;
 
   return (
     <Col xs="12" className="cart-item-body my-2 d-flex px-2">
@@ -27,7 +26,7 @@ const CartItem = ({ item }) => {
         </Modal.Footer>
       </Modal>
 
-      <img width="160px" height="197px" src={imageUrl || mobile} alt="" onError={(e) => e.target.src = mobile}/>
+      <img width="160px" height="197px" src={item.product ? imageUrl : mobile} alt="" />
       <div className="w-100">
         <Row className="justify-content-between">
           <Col sm="12" className=" d-flex flex-row justify-content-between">
@@ -50,7 +49,7 @@ const CartItem = ({ item }) => {
         <Row>
           <Col sm="12" className="mt-1">
             <div className="cat-text d-inline">الماركة :</div>
-            <div className="barnd-text d-inline mx-1">{item.product.brand.name || ""} </div>
+            <div className="barnd-text d-inline mx-1">{item.product.brand ? item.product.brand.name : ""} </div>
           </Col>
         </Row>
         <Row>

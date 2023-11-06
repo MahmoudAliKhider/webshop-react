@@ -19,12 +19,11 @@ const CartPage = () => {
                             return (<CartItem key={index} item={item} />)
                         })) : <h6>لا يوجد منتجات فى العربة</h6>
                     }
-
                   
                 </Col>
 
                 <Col xs="6" md="3">
-                <CartCheckout couponNameRes={couponNameRes} totalCartPriceAfterDiscount={totalCartPriceAfterDiscount} totalCartPrice={totalCartPrice} />
+                <CartCheckout cartItems={cartItems}  couponNameRes={couponNameRes} totalCartPriceAfterDiscount={totalCartPriceAfterDiscount} totalCartPrice={totalCartPrice} />
                 </Col>
             </Row>
         </Container>
