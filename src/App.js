@@ -72,7 +72,7 @@ function App() {
           <Route element={<ProtectedRoute auth={isAdmin} />}>
             <Route path="/admin/allproducts" element={<AdminAllProductsPage />} />
             <Route path="admin/allorders" element={<AdminAllOrdersPage />} />
-            <Route path="admin/orders/:id" element={<AdminOrderDetalisPage />} />
+            <Route path="/admin/orders/:id" element={<AdminOrderDetalisPage />} />
             <Route path="admin/addbrand" element={<AdminAddBrandPage />} />
             <Route path="admin/addcategory" element={<AdminAddCategoryPage />} />
             <Route path="admin/addsubcategory" element={<AdminAddSubCategoryPage />} />
