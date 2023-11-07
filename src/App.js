@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 import NavBarLogin from "./components/Uitily/NavBarLogin";
 import Footer from './components/Uitily/Footer';
-import ChoosePayMethoud from "./components/Checkout/ChoosePayMethoud";
 
 import HomePage from "./pages/Home/HomePage";
 
@@ -41,11 +40,11 @@ import AdminAddCouponPage from "./pages/Admin/AdminAddCouponPage";
 import AdminEditCouponPage from "./pages/Admin/AdminEditCouponPage";
 
 import ProtectedRoute from './components/Uitily/ProtectedRoute';
-import { useEffect, useState } from "react";
 
 import ProtectedRouteHook from './hook/auth/protected-route-hook';
 import ProductsByCategory from "./pages/Product/ProductsByCategory";
 import ProductsByBrand from "./pages/Product/ProductsByBrand";
+import ChoosePayMethoudPage from "./pages/Checkout/ChossePaymentPage";
 
 function App() {
   const [isUser, isAdmin, userData] = ProtectedRouteHook()
@@ -85,7 +84,7 @@ function App() {
 
           <Route element={<ProtectedRoute auth={isUser} />}>
             <Route path="user/allorders" element={<UserAllOrdersPage />} />
-            <Route path="/order/paymethoud" element={<ChoosePayMethoud />} />
+            <Route path="order/paymethoud" element={<ChoosePayMethoudPage />} />
             <Route path="user/favoriteproducts" element={<UserFavoriteProductsPage />} />
             <Route path="user/addresses" element={<UserAllAddresPage />} />
             <Route path="user/add-address" element={<UserAddAddressPage />} />

@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { createOrderCash } from '../../redux/actions/checkoutAction';
 import { getOneUserAddress } from '../../redux/actions/userAddressesAction';
 import notify from '../useNotifaction';
@@ -13,11 +13,10 @@ const OrderPayCashHook = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [, , , , , cartID] = GetAllUserCartHook()
-    console.log(addressDetalis)
     //when change address bu user
     const handelChooseAddress = (e) => {
         setAddressDetalis([])
-        if (e.target.value !== '0')
+        if (e.target.value != '0')
             get(e.target.value);
     }
 

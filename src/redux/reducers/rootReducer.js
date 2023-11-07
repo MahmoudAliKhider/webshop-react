@@ -24,5 +24,6 @@ export default combineReducers({
     userAddressesReducer: userAddressesReducer,
     cartReducer: cartReducer,
     checkoutReducer: checkoutReducer,
-    orderReducer:orderReducer
+    orderReducer:orderReducer,
+    
 })
